@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="example suite 1" verbose="1" >
+  <test name="Test suite 1" >
+    <classes>
+      <class name="com.acn.avs.stb.testing.PojoTest"/>
+      <!-- <class name="com.acn.avs.stb.Testing.TestClass"/> -->
+    </classes>
+ </test>
+</suite>

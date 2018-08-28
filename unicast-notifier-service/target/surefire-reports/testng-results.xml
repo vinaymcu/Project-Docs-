@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="87" passed="87">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="21588" started-at="2017-07-28T09:10:34Z" finished-at="2017-07-28T09:10:56Z">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="21588" started-at="2017-07-28T09:10:34Z" finished-at="2017-07-28T09:10:56Z">
+      <class name="com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest">
+        <test-method status="PASS" signature="testGetTrigger()[pri:0, instance:testGetTrigger(com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest)]" name="testGetTrigger" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetTrigger -->
+        <test-method status="PASS" signature="testGetTriggerWithValidateFalse()[pri:0, instance:testGetTriggerWithValidateFalse(com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest)]" name="testGetTriggerWithValidateFalse" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetTriggerWithValidateFalse -->
+      </class> <!-- com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest -->
+      <class name="com.acn.avs.unicast.util.UnicastRequestValidatorTest">
+        <test-method status="PASS" signature="testUnicastRequestValidationException()[pri:0, instance:testUnicastRequestValidationException(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testUnicastRequestValidationException" duration-ms="7" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUnicastRequestValidationException -->
+        <test-method status="PASS" signature="testValidateMacAddress()[pri:0, instance:testValidateMacAddress(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidateMacAddress" duration-ms="10" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidateMacAddress -->
+        <test-method status="PASS" signature="testValidateLength()[pri:0, instance:testValidateLength(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidateLength" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidateLength -->
+        <test-method status="PASS" signature="testTriggerInfoValidation()[pri:0, instance:testTriggerInfoValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testTriggerInfoValidation" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTriggerInfoValidation -->
+        <test-method status="PASS" signature="testValidate10()[pri:0, instance:testValidate10(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate10" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate10 -->
+        <test-method status="PASS" signature="testValidate11()[pri:0, instance:testValidate11(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate11" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate11 -->
+        <test-method status="PASS" signature="testValidate12()[pri:0, instance:testValidate12(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate12" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate12 -->
+        <test-method status="PASS" signature="testValidate13()[pri:0, instance:testValidate13(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate13" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate13 -->
+        <test-method status="PASS" signature="testValidate14()[pri:0, instance:testValidate14(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate14" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate14 -->
+        <test-method status="PASS" signature="testValidate15()[pri:0, instance:testValidate15(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate15" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate15 -->
+        <test-method status="PASS" signature="testValidate8WithFalseTrigger()[pri:0, instance:testValidate8WithFalseTrigger(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate8WithFalseTrigger" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate8WithFalseTrigger -->
+        <test-method status="PASS" signature="testValidate()[pri:0, instance:testValidate(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate" duration-ms="2" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate -->
+        <test-method status="PASS" signature="testValidate2()[pri:0, instance:testValidate2(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate2" duration-ms="2" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate2 -->
+        <test-method status="PASS" signature="testValidate3()[pri:0, instance:testValidate3(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate3" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate3 -->
+        <test-method status="PASS" signature="testValidate4()[pri:0, instance:testValidate4(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate4" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate4 -->
+        <test-method status="PASS" signature="testValidate5()[pri:0, instance:testValidate5(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate5" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate5 -->
+        <test-method status="PASS" signature="testValidate7()[pri:0, instance:testValidate7(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate7" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate7 -->
+        <test-method status="PASS" signature="testValidate8()[pri:0, instance:testValidate8(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate8" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate8 -->
+        <test-method status="PASS" signature="testValidate9()[pri:0, instance:testValidate9(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate9" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate9 -->
+        <test-method status="PASS" signature="testValidatorNullValue()[pri:0, instance:testValidatorNullValue(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidatorNullValue" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidatorNullValue -->
+        <test-method status="PASS" signature="testSubscriberIdNumericValidation()[pri:0, instance:testSubscriberIdNumericValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testSubscriberIdNumericValidation" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSubscriberIdNumericValidation -->
+        <test-method status="PASS" signature="testValidateLength2()[pri:0, instance:testValidateLength2(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidateLength2" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidateLength2 -->
+        <test-method status="PASS" signature="testValidateLength3()[pri:0, instance:testValidateLength3(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidateLength3" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidateLength3 -->
+        <test-method status="PASS" signature="testValidateStampAfterDate()[pri:0, instance:testValidateStampAfterDate(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidateStampAfterDate" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidateStampAfterDate -->
+        <test-method status="PASS" signature="testTriggerTypeValidation()[pri:0, instance:testTriggerTypeValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testTriggerTypeValidation" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTriggerTypeValidation -->
+        <test-method status="PASS" signature="testTimeStampNumericValidation()[pri:0, instance:testTimeStampNumericValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testTimeStampNumericValidation" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTimeStampNumericValidation -->
+        <test-method status="PASS" signature="testValidateRequest()[pri:0, instance:testValidateRequest(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidateRequest" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidateRequest -->
+        <test-method status="PASS" signature="testValidate7False()[pri:0, instance:testValidate7False(com.acn.avs.unicast.util.UnicastRequestValidatorTest)]" name="testValidate7False" duration-ms="2" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidate7False -->
+      </class> <!-- com.acn.avs.unicast.util.UnicastRequestValidatorTest -->
+      <class name="com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest">
+        <test-method status="PASS" signature="testNotifyWithTriggerMessageWithException()[pri:0, instance:testNotifyWithTriggerMessageWithException(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)]" name="testNotifyWithTriggerMessageWithException" duration-ms="15" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyWithTriggerMessageWithException -->
+        <test-method status="PASS" signature="testNotifyObj()[pri:0, instance:testNotifyObj(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)]" name="testNotifyObj" duration-ms="12" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyObj -->
+        <test-method status="PASS" signature="testNotifyWithTriggerMessage()[pri:0, instance:testNotifyWithTriggerMessage(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)]" name="testNotifyWithTriggerMessage" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyWithTriggerMessage -->
+        <test-method status="PASS" signature="testNotifyObjWithNullUrl()[pri:0, instance:testNotifyObjWithNullUrl(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)]" name="testNotifyObjWithNullUrl" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyObjWithNullUrl -->
+        <test-method status="PASS" signature="testNotifyObjWithException()[pri:0, instance:testNotifyObjWithException(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)]" name="testNotifyObjWithException" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyObjWithException -->
+      </class> <!-- com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest -->
+      <class name="com.acn.avs.unicast.message.UnicastJmsMessageListenerTest">
+        <test-method status="PASS" signature="testOnMessageTestException()[pri:0, instance:testOnMessageTestException(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)]" name="testOnMessageTestException" duration-ms="46" started-at="2017-07-28T14:40:35Z" finished-at="2017-07-28T14:40:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOnMessageTestException -->
+        <test-method status="PASS" signature="testOnMessage()[pri:0, instance:testOnMessage(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)]" name="testOnMessage" duration-ms="15" started-at="2017-07-28T14:40:35Z" finished-at="2017-07-28T14:40:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOnMessage -->
+        <test-method status="PASS" signature="testOnMessage1()[pri:0, instance:testOnMessage1(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)]" name="testOnMessage1" duration-ms="5" started-at="2017-07-28T14:40:35Z" finished-at="2017-07-28T14:40:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOnMessage1 -->
+        <test-method status="PASS" signature="testOnMessage2()[pri:0, instance:testOnMessage2(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)]" name="testOnMessage2" duration-ms="6" started-at="2017-07-28T14:40:35Z" finished-at="2017-07-28T14:40:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOnMessage2 -->
+        <test-method status="PASS" signature="testOnMessage4()[pri:0, instance:testOnMessage4(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)]" name="testOnMessage4" duration-ms="6" started-at="2017-07-28T14:40:35Z" finished-at="2017-07-28T14:40:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOnMessage4 -->
+        <test-method status="PASS" signature="testOnMessage5()[pri:0, instance:testOnMessage5(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)]" name="testOnMessage5" duration-ms="5" started-at="2017-07-28T14:40:35Z" finished-at="2017-07-28T14:40:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOnMessage5 -->
+      </class> <!-- com.acn.avs.unicast.message.UnicastJmsMessageListenerTest -->
+      <class name="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest">
+        <test-method status="PASS" signature="testGetSetTopBoxes2()[pri:0, instance:testGetSetTopBoxes2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxes2" duration-ms="144" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxes2 -->
+        <test-method status="PASS" signature="testGetSetTopBoxWithSourceMacAddress2()[pri:0, instance:testGetSetTopBoxWithSourceMacAddress2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxWithSourceMacAddress2" duration-ms="15" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxWithSourceMacAddress2 -->
+        <test-method status="PASS" signature="testGetSetTopBoxWithSourceMacAddress3()[pri:0, instance:testGetSetTopBoxWithSourceMacAddress3(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxWithSourceMacAddress3" duration-ms="12" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxWithSourceMacAddress3 -->
+        <test-method status="PASS" signature="testGetSetTopBoxWithSourceMacAddress4()[pri:0, instance:testGetSetTopBoxWithSourceMacAddress4(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxWithSourceMacAddress4" duration-ms="11" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxWithSourceMacAddress4 -->
+        <test-method status="PASS" signature="testGetSetTopBoxWithSourceMacAddress5()[pri:0, instance:testGetSetTopBoxWithSourceMacAddress5(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxWithSourceMacAddress5" duration-ms="10" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxWithSourceMacAddress5 -->
+        <test-method status="PASS" signature="testGetSetTopBoxWithSourceMacAddress6()[pri:0, instance:testGetSetTopBoxWithSourceMacAddress6(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxWithSourceMacAddress6" duration-ms="11" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxWithSourceMacAddress6 -->
+        <test-method status="PASS" signature="testGetSetTopBoxes()[pri:0, instance:testGetSetTopBoxes(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxes" duration-ms="16" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxes -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate2()[pri:0, instance:testServiceIdHardwareValidate2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate2" duration-ms="27" started-at="2017-07-28T14:40:55Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate2 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate3()[pri:0, instance:testServiceIdHardwareValidate3(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate3" duration-ms="12" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate3 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate4()[pri:0, instance:testServiceIdHardwareValidate4(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate4" duration-ms="10" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate4 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate5()[pri:0, instance:testServiceIdHardwareValidate5(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate5" duration-ms="10" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate5 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate6()[pri:0, instance:testServiceIdHardwareValidate6(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate6" duration-ms="10" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate6 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate7()[pri:0, instance:testServiceIdHardwareValidate7(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate7" duration-ms="10" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate7 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate8()[pri:0, instance:testServiceIdHardwareValidate8(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate8" duration-ms="12" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate8 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate9()[pri:0, instance:testServiceIdHardwareValidate9(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate9" duration-ms="11" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate9 -->
+        <test-method status="PASS" signature="testGetSetTopBoxesWithMacList()[pri:0, instance:testGetSetTopBoxesWithMacList(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxesWithMacList" duration-ms="20" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxesWithMacList -->
+        <test-method status="PASS" signature="testGetSetTopBoxPortAndProtocol2()[pri:0, instance:testGetSetTopBoxPortAndProtocol2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxPortAndProtocol2" duration-ms="14" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxPortAndProtocol2 -->
+        <test-method status="PASS" signature="testGetSetTopBoxPortAndProtocol()[pri:0, instance:testGetSetTopBoxPortAndProtocol(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxPortAndProtocol" duration-ms="11" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxPortAndProtocol -->
+        <test-method status="PASS" signature="testGetSetTopBoxWithSourceMacAddress()[pri:0, instance:testGetSetTopBoxWithSourceMacAddress(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxWithSourceMacAddress" duration-ms="11" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxWithSourceMacAddress -->
+        <test-method status="PASS" signature="testGetSetTopBoxesWithMacList2()[pri:0, instance:testGetSetTopBoxesWithMacList2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxesWithMacList2" duration-ms="10" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxesWithMacList2 -->
+        <test-method status="PASS" signature="testGetSetTopBoxesWithMacList3()[pri:0, instance:testGetSetTopBoxesWithMacList3(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testGetSetTopBoxesWithMacList3" duration-ms="12" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxesWithMacList3 -->
+        <test-method status="PASS" signature="testServiceIdHardwareValidate()[pri:0, instance:testServiceIdHardwareValidate(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testServiceIdHardwareValidate" duration-ms="10" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceIdHardwareValidate -->
+        <test-method status="PASS" signature="testConnectionIdForImplicitNAT()[pri:0, instance:testConnectionIdForImplicitNAT(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)]" name="testConnectionIdForImplicitNAT" duration-ms="9" started-at="2017-07-28T14:40:56Z" finished-at="2017-07-28T14:40:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testConnectionIdForImplicitNAT -->
+      </class> <!-- com.acn.avs.unicast.repository.impl.StbRepositoryImplTest -->
+      <class name="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest">
+        <test-method status="PASS" signature="testRetryCount()[pri:0, instance:testRetryCount(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testRetryCount" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRetryCount -->
+        <test-method status="PASS" signature="testProcess()[pri:0, instance:testProcess(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testProcess" duration-ms="6" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProcess -->
+        <test-method status="PASS" signature="testProcess2()[pri:0, instance:testProcess2(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testProcess2" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProcess2 -->
+        <test-method status="PASS" signature="testProcessWithTrigger()[pri:0, instance:testProcessWithTrigger(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testProcessWithTrigger" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProcessWithTrigger -->
+        <test-method status="PASS" signature="testServiceId()[pri:0, instance:testServiceId(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testServiceId" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceId -->
+        <test-method status="PASS" signature="testProcessWithTrigger2()[pri:0, instance:testProcessWithTrigger2(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testProcessWithTrigger2" duration-ms="6" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProcessWithTrigger2 -->
+        <test-method status="PASS" signature="testProcessWithTrigger3()[pri:0, instance:testProcessWithTrigger3(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testProcessWithTrigger3" duration-ms="5" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProcessWithTrigger3 -->
+        <test-method status="PASS" signature="testPersistMessagesAndInitiateScheduler1()[pri:0, instance:testPersistMessagesAndInitiateScheduler1(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testPersistMessagesAndInitiateScheduler1" duration-ms="3" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPersistMessagesAndInitiateScheduler1 -->
+        <test-method status="PASS" signature="testPersistMessagesAndInitiateScheduler2()[pri:0, instance:testPersistMessagesAndInitiateScheduler2(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testPersistMessagesAndInitiateScheduler2" duration-ms="6" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPersistMessagesAndInitiateScheduler2 -->
+        <test-method status="PASS" signature="testTriggerMessagePresisted()[pri:0, instance:testTriggerMessagePresisted(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testTriggerMessagePresisted" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTriggerMessagePresisted -->
+        <test-method status="PASS" signature="testPersistMessagesAndInitiateScheduler()[pri:0, instance:testPersistMessagesAndInitiateScheduler(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)]" name="testPersistMessagesAndInitiateScheduler" duration-ms="4" started-at="2017-07-28T14:40:36Z" finished-at="2017-07-28T14:40:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPersistMessagesAndInitiateScheduler -->
+      </class> <!-- com.acn.avs.unicast.util.UnicastBackGroundExecuterTest -->
+      <class name="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest">
+        <test-method status="PASS" signature="testNotifyHttp()[pri:0, instance:testNotifyHttp(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testNotifyHttp" duration-ms="19" started-at="2017-07-28T14:40:37Z" finished-at="2017-07-28T14:40:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyHttp -->
+        <test-method status="PASS" signature="testGetAssignedServiceName()[pri:0, instance:testGetAssignedServiceName(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testGetAssignedServiceName" duration-ms="2" started-at="2017-07-28T14:40:37Z" finished-at="2017-07-28T14:40:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAssignedServiceName -->
+        <test-method status="PASS" signature="testGetNotifications2()[pri:0, instance:testGetNotifications2(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testGetNotifications2" duration-ms="3" started-at="2017-07-28T14:40:37Z" finished-at="2017-07-28T14:40:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetNotifications2 -->
+        <test-method status="PASS" signature="testGetNotifications3()[pri:0, instance:testGetNotifications3(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testGetNotifications3" duration-ms="3" started-at="2017-07-28T14:40:37Z" finished-at="2017-07-28T14:40:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetNotifications3 -->
+        <test-method status="PASS" signature="testGetNotifications4()[pri:0, instance:testGetNotifications4(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testGetNotifications4" duration-ms="2" started-at="2017-07-28T14:40:37Z" finished-at="2017-07-28T14:40:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetNotifications4 -->
+        <test-method status="PASS" signature="testNotifyTcp()[pri:0, instance:testNotifyTcp(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testNotifyTcp" duration-ms="2013" started-at="2017-07-28T14:40:37Z" finished-at="2017-07-28T14:40:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyTcp -->
+        <test-method status="PASS" signature="testNotifyUdp()[pri:0, instance:testNotifyUdp(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testNotifyUdp" duration-ms="22" started-at="2017-07-28T14:40:39Z" finished-at="2017-07-28T14:40:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyUdp -->
+        <test-method status="PASS" signature="testNotifyTcpException()[pri:0, instance:testNotifyTcpException(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testNotifyTcpException" duration-ms="2010" started-at="2017-07-28T14:40:39Z" finished-at="2017-07-28T14:40:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNotifyTcpException -->
+        <test-method status="PASS" signature="testInitializeInetConnection()[pri:0, instance:testInitializeInetConnection(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testInitializeInetConnection" duration-ms="10" started-at="2017-07-28T14:40:41Z" finished-at="2017-07-28T14:40:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testInitializeInetConnection -->
+        <test-method status="PASS" signature="testGetSetTopBoxes()[pri:0, instance:testGetSetTopBoxes(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testGetSetTopBoxes" duration-ms="10" started-at="2017-07-28T14:40:41Z" finished-at="2017-07-28T14:40:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSetTopBoxes -->
+        <test-method status="PASS" signature="testGetNotifications()[pri:0, instance:testGetNotifications(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testGetNotifications" duration-ms="4" started-at="2017-07-28T14:40:41Z" finished-at="2017-07-28T14:40:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetNotifications -->
+        <test-method status="PASS" signature="testGetAssignedServiceName2()[pri:0, instance:testGetAssignedServiceName2(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)]" name="testGetAssignedServiceName2" duration-ms="10" started-at="2017-07-28T14:40:41Z" finished-at="2017-07-28T14:40:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAssignedServiceName2 -->
+      </class> <!-- com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

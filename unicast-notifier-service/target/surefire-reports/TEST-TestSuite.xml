@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="23.052" tests="87" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_131\jre\bin"/>
+    <property name="java.vm.version" value="25.131-b11"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="D:\perforce\acn\product\dev\avs-iptv\business-services\unicast-notifier-service"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="D:\perforce\acn\product\dev\avs-iptv\business-services\unicast-notifier-service"/>
+    <property name="java.runtime.version" value="1.8.0_131-b11"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\endorsed"/>
+    <property name="os.arch" value="x86"/>
+    <property name="java.io.tmpdir" value="C:\Users\MANOJ_~1\AppData\Local\Temp\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 8.1"/>
+    <property name="classworlds.conf" value="D:\BACK UP OLD SYSTEM DATA\IPTV WorkSpace 32 Bit\AVS Services 32Bit\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf6582965334759719011.tmp"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files (x86)/Java/jre1.8.0_131/bin/client;C:/Program Files (x86)/Java/jre1.8.0_131/bin;C:/Program Files (x86)/Java/jre1.8.0_131/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\app\oracle\product\11.2.0\client_1\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;D:\apache-ant-1.9.4\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Users\manoj_singh\Perforce;D:\gradle-2.14.1\bin;D:\sonar\sonar-runner-dist-2.4\sonar-runner-2.4\bin;D:\apache-maven-3.3.9\bin;C:\Program Files (x86)\MySQL\MySQL Utilities 1.3.4\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;.;C:\Program Files (x86)\Java\jdk1.8.0_131\bin;C:\Program Files (x86)\IDM Computer Solutions\UltraEdit\;C:\Users\manoj_singh\AppData\Roaming\npm;C:\Program Files\Docker Toolbox;D:\Software\elasticsearch-5.4.0\bin;C:\Program Files (x86)\Java\jdk1.8.0_131\bin;;D:\Software\eclipse-jee-mars-1-win32\eclipse;;."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
+    <property name="os.version" value="6.3"/>
+    <property name="user.home" value="C:\Users\manoj_singh"/>
+    <property name="user.timezone" value="Asia/Calcutta"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="user.name" value="Manoj_Singh"/>
+    <property name="java.class.path" value="/D:/Software/eclipse-jee-mars-1-win32/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.7.0.20160603-1931/jars/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="32"/>
+    <property name="java.home" value="C:\Program Files (x86)\Java\jdk1.8.0_131\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B install"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_131"/>
+    <property name="java.ext.dirs" value="C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\resources.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\rt.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\jsse.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\jce.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\charsets.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\jfr.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="D:\perforce\acn\product\dev\avs-iptv\business-services\unicast-notifier-service\EMBEDDED"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
+  </properties>
+  <testcase name="testOnMessageTestException on testOnMessageTestException(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)" classname="com.acn.avs.unicast.message.UnicastJmsMessageListenerTest" time="0.045"/>
+  <testcase name="testOnMessage on testOnMessage(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)" classname="com.acn.avs.unicast.message.UnicastJmsMessageListenerTest" time="0.015"/>
+  <testcase name="testOnMessage1 on testOnMessage1(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)" classname="com.acn.avs.unicast.message.UnicastJmsMessageListenerTest" time="0.005"/>
+  <testcase name="testOnMessage2 on testOnMessage2(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)" classname="com.acn.avs.unicast.message.UnicastJmsMessageListenerTest" time="0.007"/>
+  <testcase name="testOnMessage4 on testOnMessage4(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)" classname="com.acn.avs.unicast.message.UnicastJmsMessageListenerTest" time="0.005"/>
+  <testcase name="testOnMessage5 on testOnMessage5(com.acn.avs.unicast.message.UnicastJmsMessageListenerTest)" classname="com.acn.avs.unicast.message.UnicastJmsMessageListenerTest" time="0.005"/>
+  <testcase name="testNotifyWithTriggerMessageWithException on testNotifyWithTriggerMessageWithException(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest" time="0.015"/>
+  <testcase name="testNotifyObj on testNotifyObj(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest" time="0.012"/>
+  <testcase name="testNotifyWithTriggerMessage on testNotifyWithTriggerMessage(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest" time="0.005"/>
+  <testcase name="testNotifyObjWithNullUrl on testNotifyObjWithNullUrl(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest" time="0.004"/>
+  <testcase name="testNotifyObjWithException on testNotifyObjWithException(com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.TqsNotifierServiceImplTest" time="0.005"/>
+  <testcase name="testRetryCount on testRetryCount(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.004"/>
+  <testcase name="testProcess on testProcess(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.005"/>
+  <testcase name="testProcess2 on testProcess2(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.006"/>
+  <testcase name="testProcessWithTrigger on testProcessWithTrigger(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.006"/>
+  <testcase name="testServiceId on testServiceId(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.026"/>
+  <testcase name="testProcessWithTrigger2 on testProcessWithTrigger2(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0"/>
+  <testcase name="testProcessWithTrigger3 on testProcessWithTrigger3(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.001"/>
+  <testcase name="testPersistMessagesAndInitiateScheduler1 on testPersistMessagesAndInitiateScheduler1(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0"/>
+  <testcase name="testPersistMessagesAndInitiateScheduler2 on testPersistMessagesAndInitiateScheduler2(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.001"/>
+  <testcase name="testTriggerMessagePresisted on testTriggerMessagePresisted(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.001"/>
+  <testcase name="testPersistMessagesAndInitiateScheduler on testPersistMessagesAndInitiateScheduler(com.acn.avs.unicast.util.UnicastBackGroundExecuterTest)" classname="com.acn.avs.unicast.util.UnicastBackGroundExecuterTest" time="0.001"/>
+  <testcase name="testUnicastRequestValidationException on testUnicastRequestValidationException(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.007"/>
+  <testcase name="testValidateMacAddress on testValidateMacAddress(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.01"/>
+  <testcase name="testValidateLength on testValidateLength(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.003"/>
+  <testcase name="testTriggerInfoValidation on testTriggerInfoValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.003"/>
+  <testcase name="testValidate10 on testValidate10(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.003"/>
+  <testcase name="testValidate11 on testValidate11(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.003"/>
+  <testcase name="testValidate12 on testValidate12(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.077"/>
+  <testcase name="testValidate13 on testValidate13(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate14 on testValidate14(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate15 on testValidate15(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate8WithFalseTrigger on testValidate8WithFalseTrigger(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate on testValidate(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate2 on testValidate2(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate3 on testValidate3(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate4 on testValidate4(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0"/>
+  <testcase name="testValidate5 on testValidate5(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate7 on testValidate7(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidate8 on testValidate8(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.132"/>
+  <testcase name="testValidate9 on testValidate9(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidatorNullValue on testValidatorNullValue(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0"/>
+  <testcase name="testSubscriberIdNumericValidation on testSubscriberIdNumericValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidateLength2 on testValidateLength2(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testValidateLength3 on testValidateLength3(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0"/>
+  <testcase name="testValidateStampAfterDate on testValidateStampAfterDate(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0"/>
+  <testcase name="testTriggerTypeValidation on testTriggerTypeValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.001"/>
+  <testcase name="testTimeStampNumericValidation on testTimeStampNumericValidation(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0"/>
+  <testcase name="testValidateRequest on testValidateRequest(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0"/>
+  <testcase name="testValidate7False on testValidate7False(com.acn.avs.unicast.util.UnicastRequestValidatorTest)" classname="com.acn.avs.unicast.util.UnicastRequestValidatorTest" time="0.148"/>
+  <testcase name="testGetTrigger on testGetTrigger(com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest)" classname="com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest" time="0"/>
+  <testcase name="testGetTriggerWithValidateFalse on testGetTriggerWithValidateFalse(com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest)" classname="com.acn.avs.unicast.web.rest.controller.unit.UnicastRestControllerUTest" time="0.001"/>
+  <testcase name="testNotifyHttp on testNotifyHttp(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0"/>
+  <testcase name="testGetAssignedServiceName on testGetAssignedServiceName(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0.001"/>
+  <testcase name="testGetNotifications2 on testGetNotifications2(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0"/>
+  <testcase name="testGetNotifications3 on testGetNotifications3(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0"/>
+  <testcase name="testGetNotifications4 on testGetNotifications4(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0"/>
+  <testcase name="testNotifyTcp on testNotifyTcp(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="1.94"/>
+  <testcase name="testNotifyUdp on testNotifyUdp(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0.022"/>
+  <testcase name="testNotifyTcpException on testNotifyTcpException(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="2.011"/>
+  <testcase name="testInitializeInetConnection on testInitializeInetConnection(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0.01"/>
+  <testcase name="testGetSetTopBoxes on testGetSetTopBoxes(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0.01"/>
+  <testcase name="testGetNotifications on testGetNotifications(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0.004"/>
+  <testcase name="testGetAssignedServiceName2 on testGetAssignedServiceName2(com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest)" classname="com.acn.avs.unicast.service.impl.StbNotifierServiceImplTest" time="0.01"/>
+  <testcase name="testGetSetTopBoxes2 on testGetSetTopBoxes2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.143"/>
+  <testcase name="testGetSetTopBoxWithSourceMacAddress2 on testGetSetTopBoxWithSourceMacAddress2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.015"/>
+  <testcase name="testGetSetTopBoxWithSourceMacAddress3 on testGetSetTopBoxWithSourceMacAddress3(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.011"/>
+  <testcase name="testGetSetTopBoxWithSourceMacAddress4 on testGetSetTopBoxWithSourceMacAddress4(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.011"/>
+  <testcase name="testGetSetTopBoxWithSourceMacAddress5 on testGetSetTopBoxWithSourceMacAddress5(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testGetSetTopBoxWithSourceMacAddress6 on testGetSetTopBoxWithSourceMacAddress6(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testGetSetTopBoxes on testGetSetTopBoxes(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.016"/>
+  <testcase name="testServiceIdHardwareValidate2 on testServiceIdHardwareValidate2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.027"/>
+  <testcase name="testServiceIdHardwareValidate3 on testServiceIdHardwareValidate3(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.012"/>
+  <testcase name="testServiceIdHardwareValidate4 on testServiceIdHardwareValidate4(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testServiceIdHardwareValidate5 on testServiceIdHardwareValidate5(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testServiceIdHardwareValidate6 on testServiceIdHardwareValidate6(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testServiceIdHardwareValidate7 on testServiceIdHardwareValidate7(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testServiceIdHardwareValidate8 on testServiceIdHardwareValidate8(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.011"/>
+  <testcase name="testServiceIdHardwareValidate9 on testServiceIdHardwareValidate9(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testGetSetTopBoxesWithMacList on testGetSetTopBoxesWithMacList(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.02"/>
+  <testcase name="testGetSetTopBoxPortAndProtocol2 on testGetSetTopBoxPortAndProtocol2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.013"/>
+  <testcase name="testGetSetTopBoxPortAndProtocol on testGetSetTopBoxPortAndProtocol(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.011"/>
+  <testcase name="testGetSetTopBoxWithSourceMacAddress on testGetSetTopBoxWithSourceMacAddress(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.012"/>
+  <testcase name="testGetSetTopBoxesWithMacList2 on testGetSetTopBoxesWithMacList2(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.011"/>
+  <testcase name="testGetSetTopBoxesWithMacList3 on testGetSetTopBoxesWithMacList3(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.012"/>
+  <testcase name="testServiceIdHardwareValidate on testServiceIdHardwareValidate(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+  <testcase name="testConnectionIdForImplicitNAT on testConnectionIdForImplicitNAT(com.acn.avs.unicast.repository.impl.StbRepositoryImplTest)" classname="com.acn.avs.unicast.repository.impl.StbRepositoryImplTest" time="0.01"/>
+</testsuite>

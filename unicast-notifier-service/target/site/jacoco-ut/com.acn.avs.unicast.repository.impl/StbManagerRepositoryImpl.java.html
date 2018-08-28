@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>StbManagerRepositoryImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unicast-notifier-service</a> &gt; <a href="index.source.html" class="el_package">com.acn.avs.unicast.repository.impl</a> &gt; <span class="el_source">StbManagerRepositoryImpl.java</span></div><h1>StbManagerRepositoryImpl.java</h1><pre class="source lang-java linenums">package com.acn.avs.unicast.repository.impl;
+
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.acn.avs.unicast.entity.SetTopBoxes;
+import com.acn.avs.unicast.repository.StbManagerRepository;
+
+/**
+ * StbManagerRepositoryImpl class is created to get SetTopBox table information
+ * 
+ */
+@Repository
+<span class="fc" id="L22">public class StbManagerRepositoryImpl implements StbManagerRepository {</span>
+	
+<span class="fc" id="L24">	private static final Logger LOGGER = LoggerFactory.getLogger(StbManagerRepositoryImpl.class);</span>
+	
+	@Autowired
+	@Qualifier(&quot;stbmanagerJdbcTemplate&quot;)
+	private JdbcTemplate jdbcTemplate;
+	
+	private static final String IMPLICIT_NAT_QUERY = &quot;select ID from CONNECTION_MODES where CONNECTION_MODE = 'Implicit NAT'&quot;;
+	
+	private static final String HW_SERVICE_QUERY = &quot;SELECT COUNT(*) FROM SERVICE_HARDWARE_MAPPING MAPPING&quot;+
+			&quot; WHERE MAPPING.HARDWARE_NAME = ? &quot;+
+			&quot; AND MAPPING.SERVICE_ID = &quot;+
+			&quot; (SELECT SERVICE_ID FROM DEFAULT_SERVICE_PORT_LINK WHERE&quot;+
+			&quot; SERVICE_NAME = ?)&quot;;
+
+	
+	/**
+	 * @param subscriberId
+	 * 
+	 * @return List&lt;Settopbox&gt;
+	 */
+	@Override
+	public List&lt;SetTopBoxes&gt; getSetTopBoxes(String subscriberId) {
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">		if(LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L47">			LOGGER.debug(&quot;subscriberId: &quot;+subscriberId);</span>
+		}
+		//Excluding all STB's that does'nt have connection node
+<span class="fc" id="L50">		String query = &quot;select s.EQUIPMENT_ID as equipmentId, s.MAC_ADDRESS as &quot;</span>
+						+ &quot;macAddress, s.CONNECTION_MODE as connectionMode, s.EXTERNAL_IP_ADDRESS as externalIpAddress, s.HARDWARE_VERSION as hwversion from SET_TOP_BOXES s &quot;
+						+ &quot;where s.ASSIGNEDTO_SUBSCRIBER_ID ='&quot;+subscriberId+&quot;' AND s.CONNECTION_MODE is not null &quot; ;
+				
+<span class="fc" id="L54">		  return jdbcTemplate.query(query, new BeanPropertyRowMapper&lt;SetTopBoxes&gt;(SetTopBoxes.class));</span>
+	}
+	
+	/**
+	 * @param subscriberId
+	 * @param sourceMacAddress
+	 * @return List&lt;Settopbox&gt;
+	 */
+	@Override
+	public List&lt;SetTopBoxes&gt; getSetTopBoxes(String subscriberId, String sourceMacAddress) {
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">		if(LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L65">			LOGGER.debug(&quot;subscriberId: &quot;+subscriberId+&quot; , sourceMacAddress : &quot;+sourceMacAddress );</span>
+		}
+		//Excluding all STB's that does'nt have connection node 
+<span class="fc" id="L68">		String query = &quot;select s.EQUIPMENT_ID as equipmentId, s.MAC_ADDRESS as &quot;</span>
+						+ &quot;macAddress, s.CONNECTION_MODE as connectionMode, s.EXTERNAL_IP_ADDRESS as externalIpAddress, s.HARDWARE_VERSION as hwversion from SET_TOP_BOXES s where&quot;
+						+ &quot; s.ASSIGNEDTO_SUBSCRIBER_ID ='&quot;+subscriberId+&quot;' and s.MAC_ADDRESS &lt;&gt; '&quot;+sourceMacAddress+&quot;' AND s.CONNECTION_MODE is not null&quot;;
+				
+<span class="fc" id="L72">		  return jdbcTemplate.query(query, new BeanPropertyRowMapper&lt;SetTopBoxes&gt;(SetTopBoxes.class));</span>
+	}
+	
+	/**
+	 * @param subscriberId
+	 * @param targetMacAddress
+	 * @return List&lt;Settopbox&gt;
+	 */
+	@Override
+	public List&lt;SetTopBoxes&gt; getSetTopBoxes(String subscriberId, List&lt;String&gt; targetMacAddress){
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">		if(LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L83">			LOGGER.debug(&quot;subscriberId: &quot;+subscriberId+&quot; , targetMacAddress : &quot;+targetMacAddress );</span>
+		}
+<span class="fc" id="L85">		String query = &quot;select s.EQUIPMENT_ID as equipmentId, s.MAC_ADDRESS as &quot;</span>
+				+ &quot;macAddress, s.CONNECTION_MODE as connectionMode, s.EXTERNAL_IP_ADDRESS as externalIpAddress, s.HARDWARE_VERSION as hwversion from SET_TOP_BOXES s where&quot;
+				+ &quot; s.ASSIGNEDTO_SUBSCRIBER_ID ='&quot;+subscriberId+&quot;' and s.MAC_ADDRESS IN ('&quot;
+<span class="fc" id="L88">                        + StringUtils.join(targetMacAddress, ',').replaceAll(&quot;,&quot;, &quot;','&quot;) + &quot;')&quot;</span>
+                        +&quot; AND s.CONNECTION_MODE is not null&quot;;
+		
+<span class="fc" id="L91">			return jdbcTemplate.query(query, new BeanPropertyRowMapper&lt;SetTopBoxes&gt;(SetTopBoxes.class));</span>
+	}
+	
+	/**
+	 * getSetTopBoxPortAndProtocol
+	 * 
+	 * @param equipmentId
+	 * @param serviceName
+	 * 
+	 * @return SetTopBoxes
+	 */
+	@Override
+	public SetTopBoxes getSetTopBoxPortAndProtocol(int equipmentId, String serviceName){
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">		if(LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L105">			LOGGER.debug(&quot;equipmentId: &quot;+equipmentId+&quot; , serviceName : &quot;+serviceName );</span>
+		}
+<span class="fc" id="L107">		String query  = &quot;select ifnull(sm.EXTERNAL_PORT, fspm.DEFAULT_EXTERNAL_PORT) as externalPort, fspm.PROTOCOL as protocol from&quot;</span>
+				+ &quot; DEFAULT_SERVICE_PORT_LINK fspm left outer join&quot;
+				+ &quot; STB_SERVICE_PORT_MAPPINGS sm on sm.SERVICE_ID = fspm.SERVICE_ID and sm.EQUIPMENT_ID =&quot;+ equipmentId
+				+ &quot; where fspm.SERVICE_NAME='&quot;+serviceName+&quot;'&quot;;
+		
+<span class="fc" id="L112">		return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper&lt;SetTopBoxes&gt;(SetTopBoxes.class));</span>
+	}
+	
+	/**
+	 * isHwVerionAssciateWithServiceName
+	 * 
+	 * @param hwVersion
+	 * @param serviceName
+	 * 
+	 * @return 
+	 */
+	public boolean isHwVerionAssciateWithServiceName(String hwVersion, String serviceName) {
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">		if(LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L125">			LOGGER.debug(&quot;hwVersion: &quot;+hwVersion+&quot; , serviceName : &quot;+serviceName );</span>
+		}
+
+<span class="fc" id="L128">		Integer serviceHwMappingCount = jdbcTemplate.queryForObject(</span>
+				HW_SERVICE_QUERY, new Object[] { hwVersion, serviceName }, Integer.class);
+<span class="fc bfc" id="L130" title="All 2 branches covered.">		return (serviceHwMappingCount &gt; 0) ? true: false;</span>
+	}
+
+	/**
+	 * 
+	 * @return int
+	 */
+	public int getConnectionIdForImplicitNAT(){
+<span class="fc" id="L138">		return jdbcTemplate.queryForObject(IMPLICIT_NAT_QUERY, Integer.class);</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

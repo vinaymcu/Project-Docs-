@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnicastExceptionCotroller.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unicast-notifier-service</a> &gt; <a href="index.source.html" class="el_package">com.acn.avs.unicast.web.rest.controller</a> &gt; <span class="el_source">UnicastExceptionCotroller.java</span></div><h1>UnicastExceptionCotroller.java</h1><pre class="source lang-java linenums">package com.acn.avs.unicast.web.rest.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.acn.avs.unicast.event.json.UnicastRestResponse;
+import com.acn.avs.unicast.event.wrapper.UnicastRestResponseWrapper;
+import com.acn.avs.unicast.exception.UnicastRequestValidationException;
+
+
+/**
+ * 
+ * @author Anand.Jha
+ * 
+ * This class is responsible to catch the exception 
+ *
+ */
+@ControllerAdvice
+<span class="nc" id="L28">public class UnicastExceptionCotroller {</span>
+<span class="nc" id="L29">	private static final Logger LOGGER = LoggerFactory.getLogger(UnicastExceptionCotroller.class);</span>
+	
+	 @Autowired
+	 private UnicastRestResponseWrapper unicastRestResponseWrapper;
+	
+	 @Autowired
+	 MessageSourceAccessor messageSourceAccessor;
+	 
+	/**
+     * handle HttpRequestMethodNotSupportedException
+     * 
+     * @param hrme
+     */
+    @ExceptionHandler({ HttpRequestMethodNotSupportedException.class })
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = &quot;Invalid request method found.&quot;)
+    public void handleHttpRequestMethodNotSupportedException(
+            HttpRequestMethodNotSupportedException hrme) {
+<span class="nc" id="L46">        LOGGER.error(&quot;HttpRequestMethodNotSupportedException found. : &quot;, hrme);</span>
+<span class="nc" id="L47">    }</span>
+    
+    /**
+     * handle HttpMessageNotReadableException
+     * 
+     * @param hmne
+     */
+    @ExceptionHandler({ HttpMessageNotReadableException.class })
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = &quot;The request entity has a invalid value.&quot;)
+    public void handleHttpMessageNotReadableException(HttpMessageNotReadableException hmne) {
+<span class="nc" id="L57">        LOGGER.error(&quot;HttpMessageNotReadableException found. : &quot;, hmne);</span>
+<span class="nc" id="L58">    }</span>
+    
+   
+    /**
+     * Handle Exception
+     * 
+     * @param ex
+     * @return UnicastRestResponse
+     */
+    @ExceptionHandler({ Exception.class })
+    @ResponseBody
+    public UnicastRestResponse handleException(Exception ex) {
+<span class="nc" id="L70">        return unicastRestResponseWrapper.prepareFailedResponse();</span>
+    }
+    
+    /**
+     * Handle UnicastRequestValidationException
+     * 
+     * @param requestValidationException
+     * @return UnicastRestResponse
+     */
+    @ExceptionHandler({ UnicastRequestValidationException.class })
+    @ResponseBody
+    public UnicastRestResponse handleUnicastRequestValidationException(UnicastRequestValidationException requestValidationException) {
+<span class="nc" id="L82">    	String errorCode = requestValidationException.getErrorCode();</span>
+<span class="nc" id="L83">    	String errorMsg = messageSourceAccessor.getMessage(errorCode,</span>
+<span class="nc" id="L84">    			requestValidationException.getMsgParamsArray());</span>
+
+<span class="nc" id="L86">    	return unicastRestResponseWrapper.prepareValidationFailedResponse(errorCode, errorMsg);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

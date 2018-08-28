@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnicastRestController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unicast-notifier-service</a> &gt; <a href="index.source.html" class="el_package">com.acn.avs.unicast.web.rest.controller</a> &gt; <span class="el_source">UnicastRestController.java</span></div><h1>UnicastRestController.java</h1><pre class="source lang-java linenums">package com.acn.avs.unicast.web.rest.controller;
+
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.acn.avs.unicast.event.json.UnicastRestResponse;
+import com.acn.avs.unicast.event.json.EventUpdateRequest;
+import com.acn.avs.unicast.event.wrapper.UnicastRestResponseWrapper;
+import com.acn.avs.unicast.exception.UnicastRequestValidationException;
+import com.acn.avs.unicast.util.UnicastRequestValidator;
+
+/**
+ * 
+ * @author Anand.Jha
+ * 
+ * This class is responsible to receive the trigger
+ *
+ */
+
+@RestController
+@RequestMapping(value = &quot;/unicastnotifier&quot;, produces = { MediaType.APPLICATION_JSON_VALUE })
+<span class="fc" id="L28">public class UnicastRestController {</span>
+
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+
+	@Autowired
+	private UnicastRestResponseWrapper unicastRestResponseWrapper;
+
+	@Autowired
+	UnicastRequestValidator validator;
+
+	/**
+	 * getTrigger request
+	 *
+	 * @param eventUpdateRequest
+	 *            eventUpdate request
+	 * @return the response entity
+	 * @throws UnicastRequestValidationException
+	 */
+	@RequestMapping(value = &quot;/trigger&quot;, method = RequestMethod.POST,
+			consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity&lt;UnicastRestResponse&gt; getTrigger(
+			@RequestBody EventUpdateRequest eventUpdateRequest)
+					throws UnicastRequestValidationException {
+	
+<span class="fc" id="L53">		validator.validate(eventUpdateRequest);</span>
+		
+<span class="fc" id="L55">		rabbitTemplate.convertAndSend(eventUpdateRequest);</span>
+
+<span class="fc" id="L57">		return ResponseEntity.ok(unicastRestResponseWrapper</span>
+<span class="fc" id="L58">				.prepareSuccessResponse());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

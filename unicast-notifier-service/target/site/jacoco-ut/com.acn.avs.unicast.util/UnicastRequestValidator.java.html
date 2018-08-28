@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnicastRequestValidator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unicast-notifier-service</a> &gt; <a href="index.source.html" class="el_package">com.acn.avs.unicast.util</a> &gt; <span class="el_source">UnicastRequestValidator.java</span></div><h1>UnicastRequestValidator.java</h1><pre class="source lang-java linenums">package com.acn.avs.unicast.util;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.acn.avs.unicast.entity.SetTopBoxes;
+import com.acn.avs.unicast.entity.TriggerMapping;
+import com.acn.avs.unicast.event.json.EventUpdate;
+import com.acn.avs.unicast.event.json.EventUpdateRequest;
+import com.acn.avs.unicast.exception.UnicastRequestValidationErrorReason;
+import com.acn.avs.unicast.exception.UnicastRequestValidationException;
+import com.acn.avs.unicast.service.StbNotifierService;
+
+/**
+ * 
+ * @author Anand.Jha
+ *
+ *         This class will validate the input request
+ */
+@Component
+public class UnicastRequestValidator {
+	/**
+	 * LOGGER
+	 */
+<span class="fc" id="L36">	private static final Logger LOGGER = LoggerFactory.getLogger(UnicastRequestValidator.class);</span>
+
+	@Autowired
+	StbNotifierService stbNotifierService;
+
+	private static final String ERRORCODE = &quot;ACN_3020&quot;;
+
+	private Date epochStartDate;
+	private Date epochEndDate;
+
+<span class="fc" id="L46">	UnicastRequestValidator() {</span>
+<span class="fc" id="L47">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;, Locale.getDefault());</span>
+		try {
+<span class="fc" id="L49">			epochStartDate = sdf.parse(&quot;1970-01-01&quot;);</span>
+<span class="fc" id="L50">			epochEndDate = sdf.parse(&quot;2038-01-19&quot;);</span>
+<span class="nc" id="L51">		} catch (ParseException e) {</span>
+<span class="nc" id="L52">			LOGGER.error(&quot; ParseException : &quot; + e);</span>
+<span class="fc" id="L53">		}</span>
+<span class="fc" id="L54">	}</span>
+
+	/**
+	 * validate json request
+	 * 
+	 * @param eventUpdate
+	 * 
+	 * @return boolean
+	 * 
+	 * @throws UnicastRequestValidationException
+	 */
+	public boolean validate(EventUpdate eventUpdate) throws UnicastRequestValidationException {
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L67">			LOGGER.debug(&quot;(+)validate&quot;);</span>
+		}
+<span class="fc" id="L69">		String subscriberId = eventUpdate.getSubscriberId();</span>
+<span class="fc" id="L70">		String triggerType = eventUpdate.getTriggerType();</span>
+<span class="fc" id="L71">		String timeStamp = eventUpdate.getTimestamp();</span>
+<span class="fc" id="L72">		List&lt;String&gt; macAddresses = eventUpdate.getMACAddress();</span>
+
+<span class="fc" id="L74">		validateMandatoryParameter(subscriberId, triggerType, timeStamp);</span>
+
+<span class="fc" id="L76">		timeStampNumericValidation(timeStamp);</span>
+<span class="fc" id="L77">		timeStampValidation(timeStamp);</span>
+
+<span class="fc" id="L79">		boolean isTriggerTypeMessageInfo = stbNotifierService.isMessageInfoTrigger(triggerType);</span>
+
+<span class="fc" id="L81">		String triggerInfo = eventUpdate.getTriggerInfo();</span>
+
+<span class="fc" id="L83">		triggerInfoValidation(isTriggerTypeMessageInfo, triggerInfo);</span>
+
+<span class="fc" id="L85">		TriggerMapping triggerMapping = stbNotifierService.getTriggerMapping(triggerType);</span>
+
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L88">			LOGGER.debug(&quot;TriggerMapping : &quot; + triggerMapping);</span>
+		}
+
+<span class="fc" id="L91">		triggerTypeValidation(triggerMapping);</span>
+
+<span class="fc" id="L93">		List&lt;SetTopBoxes&gt; setTopBoxes = stbNotifierService.getSetTopBoxes(subscriberId);</span>
+
+<span class="fc" id="L95">		setTopBoxesValidation(setTopBoxes);</span>
+
+<span class="fc" id="L97">		extractMacAddressAndValidate(macAddresses, isTriggerTypeMessageInfo, setTopBoxes);</span>
+
+<span class="fc" id="L99">		validateService(setTopBoxes, triggerMapping.getServiceName());</span>
+
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L102">			LOGGER.debug(&quot;(-)validate&quot;);</span>
+		}
+<span class="fc" id="L104">		return true;</span>
+	}
+
+	/**
+	 * 
+	 * @param eventUpdateRequest
+	 * @return
+	 * @throws UnicastRequestValidationException
+	 */
+	public boolean validate(EventUpdateRequest eventUpdateRequest) throws UnicastRequestValidationException {
+<span class="nc" id="L114">		eventUpdateRequest.setValidated(true);</span>
+<span class="nc" id="L115">		return this.validate(eventUpdateRequest.getEventUpdate());</span>
+	}
+
+	/**
+	 * timeStampNumericValidation
+	 * 
+	 * @param timeStamp
+	 * 
+	 * @return
+	 */
+	private void timeStampNumericValidation(String timeStamp) {
+
+<span class="fc bfc" id="L127" title="All 2 branches covered.">		if (!isNumeric(timeStamp)) {</span>
+<span class="fc" id="L128">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L129">					new Object[] { UnicastRequestValidationErrorReason.TIMESTAMP_NOT_NUMERIC.getReason() });</span>
+		}
+<span class="fc" id="L131">	}</span>
+
+	/**
+	 * triggerInfoValidation
+	 * 
+	 * @param isTriggerTypeMessageInfo
+	 * @param triggerInfo
+	 */
+	private void triggerInfoValidation(boolean isTriggerTypeMessageInfo, String triggerInfo) {
+
+<span class="fc bfc" id="L141" title="All 4 branches covered.">		if (isTriggerTypeMessageInfo &amp;&amp; StringUtils.isEmpty(triggerInfo)) {</span>
+<span class="fc" id="L142">			throw new UnicastRequestValidationException(ERRORCODE, new Object[] {</span>
+<span class="fc" id="L143">					UnicastRequestValidationErrorReason.TRIGGER_INFO_NULL_FOR_MESSAGE_INFO.getReason() });</span>
+		}
+<span class="fc" id="L145">	}</span>
+
+	/**
+	 * triggerTypeValidation
+	 * 
+	 * @param triggerMapping
+	 * 
+	 * @return
+	 */
+	private void triggerTypeValidation(TriggerMapping triggerMapping) {
+
+<span class="fc bfc" id="L156" title="All 2 branches covered.">		if (triggerMapping == null) {</span>
+<span class="fc" id="L157">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L158">					new Object[] { UnicastRequestValidationErrorReason.INVALID_TRIGGER_TYPE.getReason() });</span>
+		}
+<span class="fc" id="L160">	}</span>
+
+	/**
+	 * validateMandatoryParameter
+	 * 
+	 * @param subscriberId
+	 * @param triggerType
+	 * @param timeStamp
+	 * 
+	 *            return boolean
+	 */
+	private boolean validateMandatoryParameter(String subscriberId, String triggerType, String timeStamp) {
+
+<span class="fc bfc" id="L173" title="All 2 branches covered.">		if (StringUtils.isEmpty(subscriberId)) {</span>
+<span class="fc" id="L174">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L175">					new Object[] { UnicastRequestValidationErrorReason.SUBSCRIBERID_NULL_EMPTY.getReason() });</span>
+		}
+
+<span class="fc bfc" id="L178" title="All 2 branches covered.">		if (StringUtils.isEmpty(triggerType)) {</span>
+<span class="fc" id="L179">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L180">					new Object[] { UnicastRequestValidationErrorReason.TRIGGERTYPE_NULL_EMPTY.getReason() });</span>
+		}
+
+<span class="fc bfc" id="L183" title="All 2 branches covered.">		if (StringUtils.isEmpty(timeStamp)) {</span>
+<span class="fc" id="L184">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L185">					new Object[] { UnicastRequestValidationErrorReason.TIMESTAMP_NULL_EMPTY.getReason() });</span>
+		}
+
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L189">			LOGGER.debug(&quot;Mandatory parameter validataion is true!!&quot;);</span>
+		}
+<span class="fc" id="L191">		return true;</span>
+	}
+
+	/**
+	 * extractMacAddressAndValidate
+	 * 
+	 * Validate all macAddress in case of message info trigger and validate only
+	 * 1st macAdress for other trigger
+	 * 
+	 * @param macAddresses
+	 * @param isTriggerTypeMessageInfo
+	 * @param setTopBoxes
+	 */
+	private void extractMacAddressAndValidate(List&lt;String&gt; macAddresses, boolean isTriggerTypeMessageInfo,
+			List&lt;SetTopBoxes&gt; setTopBoxes) {
+
+<span class="fc" id="L207">		boolean result = false;</span>
+
+<span class="fc bfc" id="L209" title="All 2 branches covered.">		if (CollectionUtils.isNotEmpty(macAddresses)) {</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">			if (isTriggerTypeMessageInfo) {</span>
+<span class="fc" id="L211">				result = validateMacAddress(setTopBoxes, macAddresses);</span>
+			} else {
+<span class="fc" id="L213">				result = validateMacAddress(setTopBoxes, macAddresses.get(0));</span>
+			}
+
+<span class="fc bfc" id="L216" title="All 2 branches covered.">			if (!result) {</span>
+<span class="fc" id="L217">				throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L218">						new Object[] { UnicastRequestValidationErrorReason.MAC_NOT_VALIDATED.getReason() });</span>
+			}
+		}
+<span class="fc" id="L221">	}</span>
+
+	/**
+	 * validate requested macAddresses with associated setTopBoxes
+	 * 
+	 * @param setTopBoxes
+	 * @param reqMacAddresses
+	 * 
+	 * @return boolean
+	 */
+	private boolean validateMacAddress(List&lt;SetTopBoxes&gt; setTopBoxes, List&lt;String&gt; reqMacAddresses) {
+<span class="fc" id="L232">		boolean validateMac = true;</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">		for (String reqMacAdress : reqMacAddresses) {</span>
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">			for (SetTopBoxes stb : setTopBoxes) {</span>
+
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">				if (reqMacAdress.equalsIgnoreCase(stb.getMacAddress())) {</span>
+<span class="fc" id="L237">					validateMac = true;</span>
+<span class="fc" id="L238">					break;</span>
+				} else {
+<span class="nc" id="L240">					validateMac = false;</span>
+				}
+<span class="nc" id="L242">			}</span>
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">			if (!validateMac) {</span>
+<span class="nc" id="L244">				return validateMac;</span>
+			}
+<span class="fc" id="L246">		}</span>
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L248">			LOGGER.debug(&quot;validateMacAddress  : &quot; + validateMac);</span>
+		}
+<span class="fc" id="L250">		return validateMac;</span>
+	}
+
+	/**
+	 * validate requested macAddress with associated setTopBoxes
+	 * 
+	 * @param setTopBoxes
+	 * @param reqMacAddressList
+	 * 
+	 * @return boolean
+	 */
+	private boolean validateMacAddress(List&lt;SetTopBoxes&gt; setTopBoxes, String reqMacAddress) {
+<span class="fc" id="L262">		boolean validateMac = false;</span>
+
+<span class="fc bfc" id="L264" title="All 2 branches covered.">		for (SetTopBoxes stb : setTopBoxes) {</span>
+
+<span class="fc bfc" id="L266" title="All 2 branches covered.">			if (reqMacAddress.equalsIgnoreCase(stb.getMacAddress())) {</span>
+<span class="fc" id="L267">				validateMac = true;</span>
+<span class="fc" id="L268">				break;</span>
+			}
+<span class="fc" id="L270">		}</span>
+
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L273">			LOGGER.debug(&quot;validateMacAddress  : &quot; + validateMac);</span>
+		}
+<span class="fc" id="L275">		return validateMac;</span>
+	}
+
+	/**
+	 * validateService
+	 * 
+	 * @param serviceName
+	 * @param setTopBoxes
+	 */
+	private void validateService(List&lt;SetTopBoxes&gt; setTopBoxes, String serviceName) {
+<span class="pc bpc" id="L285" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L286">			LOGGER.debug(&quot;(+)validateService, setTopBoxes : &quot; + setTopBoxes + &quot;, serviceName= &quot; + serviceName);</span>
+		}
+<span class="fc" id="L288">		boolean result = true;</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">		for (SetTopBoxes stb : setTopBoxes) {</span>
+<span class="fc" id="L290">			String hwVersion = stb.getHwversion();</span>
+
+<span class="pc bpc" id="L292" title="1 of 2 branches missed.">			if (!stbNotifierService.isImplicitNATMode(stb.getConnectionMode())) {</span>
+<span class="fc" id="L293">				result = stbNotifierService.isHwVerionAssciateWithServiceName(hwVersion, serviceName);</span>
+			}
+<span class="fc" id="L295">		}</span>
+
+<span class="fc bfc" id="L297" title="All 2 branches covered.">		if (!result) {</span>
+<span class="fc" id="L298">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L299">					new Object[] { UnicastRequestValidationErrorReason.INVALID_SERVICE.getReason() });</span>
+		}
+
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L303">			LOGGER.debug(&quot;(-)validateService&quot;);</span>
+		}
+<span class="fc" id="L305">	}</span>
+
+	/**
+	 * @param setTopBoxes
+	 */
+	private void setTopBoxesValidation(List&lt;SetTopBoxes&gt; setTopBoxes) {
+<span class="fc bfc" id="L311" title="All 2 branches covered.">		if (CollectionUtils.isEmpty(setTopBoxes)) {</span>
+<span class="fc" id="L312">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L313">					new Object[] { UnicastRequestValidationErrorReason.NO_STB_FOR_SUBSCRIBER.getReason() });</span>
+		}
+<span class="fc" id="L315">	}</span>
+
+	/**
+	 * check if the string contains valid numeric value This method is 20 times
+	 * faster than using Integer.parseInt this method is 10 times faster than
+	 * using regex str.matches(&quot;^-?\\d+$&quot;)
+	 * 
+	 * @param value
+	 * @param isCommaSeparated
+	 * @return boolean
+	 */
+	public static boolean isNumeric(String value) {
+<span class="fc" id="L327">		boolean status = true;</span>
+<span class="fc bfc" id="L328" title="All 2 branches covered.">		if (value == null) {</span>
+<span class="fc" id="L329">			return false;</span>
+		}
+
+<span class="fc" id="L332">		int length = value.length();</span>
+<span class="fc" id="L333">		int count = 0;</span>
+<span class="fc bfc" id="L334" title="All 2 branches covered.">		for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc" id="L335">			char c = value.charAt(i);</span>
+<span class="pc bpc" id="L336" title="1 of 4 branches missed.">			if (c &lt; '0' || c &gt; '9') {</span>
+<span class="fc" id="L337">				status = false;</span>
+<span class="fc" id="L338">				break;</span>
+			} else {
+<span class="fc" id="L340">				count++;</span>
+			}
+		}
+<span class="fc bfc" id="L343" title="All 2 branches covered.">		if (count == 0) {</span>
+<span class="fc" id="L344">			status = false;</span>
+		}
+<span class="pc bpc" id="L346" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L347">			LOGGER.debug(&quot;value : &quot; + value + &quot;, isNumeric = &quot; + status);</span>
+		}
+<span class="fc" id="L349">		return status;</span>
+	}
+
+	/**
+	 * timeStampValidation
+	 * 
+	 * @param timeStamp
+	 * 
+	 * @return
+	 */
+	private void timeStampValidation(String timeStamp) {
+<span class="fc" id="L360">		long timeToCompare = 0l;</span>
+<span class="fc bfc" id="L361" title="All 2 branches covered.">		if (timeStamp.length() == 10) {</span>
+<span class="fc" id="L362">			timeToCompare = Long.valueOf(timeStamp) * 1000;</span>
+<span class="fc bfc" id="L363" title="All 2 branches covered.">		} else if (timeStamp.length() == 13) {</span>
+<span class="fc" id="L364">			timeToCompare = Long.valueOf(timeStamp);</span>
+		} else {
+<span class="fc" id="L366">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L367">					new Object[] { UnicastRequestValidationErrorReason.INVALID_TIMESTAMP.getReason() });</span>
+		}
+<span class="fc" id="L369">		Date dateToComare = new Date(timeToCompare);</span>
+<span class="pc bpc" id="L370" title="1 of 4 branches missed.">		if (dateToComare.before(epochStartDate) || dateToComare.after(epochEndDate)) {</span>
+<span class="fc" id="L371">			throw new UnicastRequestValidationException(ERRORCODE,</span>
+<span class="fc" id="L372">					new Object[] { UnicastRequestValidationErrorReason.INVALID_TIMESTAMP.getReason() });</span>
+
+		}
+<span class="fc" id="L375">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

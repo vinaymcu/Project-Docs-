@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnicastBackgroundProcessExecutor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unicast-notifier-service</a> &gt; <a href="index.source.html" class="el_package">com.acn.avs.unicast.util</a> &gt; <span class="el_source">UnicastBackgroundProcessExecutor.java</span></div><h1>UnicastBackgroundProcessExecutor.java</h1><pre class="source lang-java linenums">package com.acn.avs.unicast.util;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+
+import com.acn.avs.unicast.entity.TriggerMessage;
+import com.acn.avs.unicast.event.param.TqsNotificationParam;
+import com.acn.avs.unicast.repository.UnicastTriggerMessageRepository;
+import com.acn.avs.unicast.service.TqsNotifierService;
+
+/**
+ * @author Anand.Jha
+ * 
+ * This class is responsible to execute Background Process
+ * Background process tasks:
+ * a) Insert failed message to Trigger_Message table
+ * b) Query the DB table “TRIGGER_MESSAGE” for any failed messages.
+ * c) Repeat the cycle of resending message to TQS again for all the requests in DB
+ * d) If resending of requests fail again than retry till configurable times
+ * e) If resending of requests fail again after configurable tries then the corresponding records removed from DB
+ * f) If success than also remove the data from DB
+ * 
+ */
+
+@Component
+<span class="fc" id="L42">public class UnicastBackgroundProcessExecutor {</span>
+
+	/**
+	 * LOGGER
+	 */
+<span class="fc" id="L47">	private static final Logger LOGGER = Logger.getLogger(UnicastBackgroundProcessExecutor.class);</span>
+
+	/**
+	 * retry count value from properties file
+	 */
+	@Value(&quot;${tqs.server.maxRetries:0}&quot;)
+	private int maxRetryAccessCount;
+
+	/**
+	 * TqsNotifierService
+	 */
+	@Autowired
+	TqsNotifierService tqsNotifierService;
+
+	/**
+	 * fixedDelay to start background process
+	 */
+	@Value(&quot;${background.process.repeatInterval:5}&quot;)
+	private int repeatInterval;
+
+	/**
+	 * serverPort value
+	 */
+	@Value(&quot;${server.port:0}&quot;)
+	private int serverPort;
+	
+	/** ssl port */
+	@Value(&quot;${ssl.port:0}&quot;)
+	private int sslPort;
+	
+	/**
+	 * serviceAppName
+	 */
+	@Value(&quot;${spring.application.name}&quot;)
+	private String serviceAppName;
+	
+	
+	/**
+	 * ScheduledExecutorService
+	 */
+	ScheduledExecutorService  scheduledExecutorService;
+
+	/**
+	 * UnicastTriggerMessageRepository
+	 */
+	@Autowired
+	UnicastTriggerMessageRepository unicastTriggerMessageRepository;
+	
+	/**
+	 * isSchedulerStarted boolean flag to check is scheduler started or not
+	 */
+	private boolean isSchedulerStarted;
+	
+	/**
+	 * instanceId of currently running server
+	 */
+	private int instanceId;
+	
+	@Autowired
+	private DiscoveryClient discoveryClient;
+	
+	/**
+	 * 
+	 */
+	@PostConstruct
+	void assignInstanceId(){
+<span class="nc" id="L113">		String host = null;</span>
+		try {
+<span class="nc" id="L115">			host = InetAddress.getLocalHost().getHostAddress();</span>
+<span class="nc" id="L116">		} catch (UnknownHostException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L118">			LOGGER.error(&quot;Error occured while getting host : &quot;+ e);</span>
+<span class="nc" id="L119">		}</span>
+		
+<span class="nc" id="L121">		instanceId = this.generateServiceId(host);</span>
+		
+<span class="nc bnc" id="L123" title="All 2 branches missed.">		if (isAnyTriggerMessagePresisted()){</span>
+<span class="nc" id="L124">			initiateScheduler();</span>
+		}
+<span class="nc" id="L126">	}</span>
+
+	/**
+	 * persist Messages and Initiate the Scheduler thread
+	 * 
+	 * @param tqsNotificationParam
+	 * @param errorMessage
+	 * 
+	 * @return
+	 * 
+	 */
+	public void persistMessagesAndInitiateScheduler(TqsNotificationParam tqsNotificationParam, String errorMessage) {
+	
+<span class="fc bfc" id="L139" title="All 2 branches covered.">		if(maxRetryAccessCount != 0){</span>
+<span class="fc" id="L140">			persistMessages(tqsNotificationParam, errorMessage);</span>
+			
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">			if(!isSchedulerStarted ) {</span>
+<span class="fc" id="L143">				initiateScheduler();</span>
+			}
+		}
+<span class="fc" id="L146">	}</span>
+	
+	
+	/**
+	 * Initiate Scheduler with fixed delay
+	 */
+	public void initiateScheduler() {
+<span class="fc" id="L153">		LOGGER.info(&quot;(+)initiateScheduler with fixedDelay : &quot;+ repeatInterval + &quot; minutes.&quot;);</span>
+		
+<span class="fc" id="L155">		LOGGER.info(&quot;maxRetryAccessCount = &quot;+ maxRetryAccessCount);</span>
+
+<span class="pc bpc" id="L157" title="1 of 4 branches missed.">		if(scheduledExecutorService == null || scheduledExecutorService.isShutdown()){</span>
+<span class="fc" id="L158">			scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();</span>
+		}else {
+<span class="fc" id="L160">			scheduledExecutorService.shutdownNow();</span>
+<span class="fc" id="L161">			scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();</span>
+		}
+
+<span class="fc" id="L164">		scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {</span>
+
+			@Override 
+			public void run() {
+				try{
+<span class="nc" id="L169">					process();</span>
+<span class="nc" id="L170">				} catch(Exception e){</span>
+<span class="nc" id="L171">					LOGGER.error(&quot;error occured while retry process&quot;, e);</span>
+<span class="nc" id="L172">				}</span>
+<span class="nc" id="L173">			}</span>
+		}, repeatInterval ,repeatInterval , TimeUnit.MINUTES);
+
+<span class="fc" id="L176">		isSchedulerStarted = true;</span>
+		
+<span class="fc" id="L178">		LOGGER.info(&quot;(-)initiateScheduler&quot;);</span>
+<span class="fc" id="L179">	}</span>
+
+	/**
+	 * Process all the notification from Database and retry till configurable times and update the retry value into Database.
+	 * Finally if all the data process complete stop the scheduler
+	 *  
+	 */
+	private void process() {
+<span class="pc bpc" id="L187" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L188">			LOGGER.debug(&quot;(+) process&quot;);</span>
+		}
+
+<span class="fc" id="L191">		List&lt;TriggerMessage&gt; triggerMessages = this.getTriggerMessages();</span>
+		
+<span class="fc bfc" id="L193" title="All 2 branches covered.">		if (this.getTriggerMessagesSize(triggerMessages) == 0){</span>
+<span class="fc" id="L194">			stopProcess();</span>
+		}
+
+<span class="fc bfc" id="L197" title="All 2 branches covered.">		for(TriggerMessage triggerMessage : triggerMessages) {</span>
+
+<span class="fc bfc" id="L199" title="All 2 branches covered.">			if (tqsNotifierService.notify(triggerMessage) == HttpStatus.OK.value()) {</span>
+<span class="fc" id="L200">				deleteMessageById(triggerMessage.getId());</span>
+			} else {
+<span class="fc" id="L202">				int retryCount = triggerMessage.getRetryCount() + 1;</span>
+
+<span class="fc bfc" id="L204" title="All 2 branches covered.">				if (retryCount &gt;= maxRetryAccessCount ){</span>
+<span class="fc" id="L205">					deleteMessageById(triggerMessage.getId());</span>
+<span class="fc" id="L206">					LOGGER.error(&quot;TQS server is not reachable even after max retries (&quot;+maxRetryAccessCount+&quot;), so deleteing Trigger[ MacAddress:&quot;+ triggerMessage.getMacAddress() +&quot;, TriggerType: &quot;+ triggerMessage.getTriggerType()+ &quot;].&quot;);</span>
+				}else {
+<span class="fc" id="L208">					updateRetryCount(triggerMessage, retryCount);</span>
+				}
+			}
+<span class="fc" id="L211">		}</span>
+		
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L214">			LOGGER.debug(&quot;(-) process&quot;);</span>
+		}
+<span class="fc" id="L216">	}</span>
+
+	/**
+	 * persist Trigger Messages
+	 * 
+	 * @param tqsNotificationParam
+	 * @param errorMessage
+	 * 
+	 * @return 
+	 */
+	private void persistMessages(TqsNotificationParam tqsNotificationParam,
+			String errorMessage) {
+		
+<span class="fc" id="L229">		LOGGER.info(&quot;persistMessages for the macAddress : &quot;</span>
+<span class="fc" id="L230">				+tqsNotificationParam.getMacAddress());</span>
+		
+<span class="fc" id="L232">			TriggerMessage triggerMessage = new TriggerMessage();</span>
+<span class="fc" id="L233">			triggerMessage.setMacAddress(tqsNotificationParam.getMacAddress());</span>
+<span class="fc" id="L234">			triggerMessage.setTriggerType(tqsNotificationParam.getTriggerType());</span>
+<span class="fc" id="L235">			triggerMessage.setTimestamp(tqsNotificationParam.getTimestamp());</span>
+<span class="fc" id="L236">			triggerMessage.setErrorMessage(errorMessage);</span>
+<span class="fc" id="L237">			triggerMessage.setRetryCount(0);</span>
+<span class="fc" id="L238">			triggerMessage.setInstanceId(instanceId);</span>
+<span class="fc" id="L239">			unicastTriggerMessageRepository.save(triggerMessage);</span>
+		
+<span class="fc" id="L241">	}</span>
+
+	/**
+	 * Update RetryCount in database
+	 *  
+	 * @param triggerMessage
+	 * @param retryCount
+	 * 
+	 * @return
+	 */
+	public void updateRetryCount(TriggerMessage triggerMessage,  int retryCount) {
+		
+<span class="fc" id="L253">			LOGGER.info(&quot;updateRetryCount for the macAddress : &quot;</span>
+<span class="fc" id="L254">					+triggerMessage.getMacAddress() + &quot; with retryCount: &quot;+ retryCount);</span>
+<span class="fc" id="L255">			unicastTriggerMessageRepository.setRetryCountById(retryCount, triggerMessage.getId());</span>
+<span class="fc" id="L256">	}</span>
+	
+	/**
+	 * deleteMessageById
+	 * 
+	 * @param id
+	 * @return
+	 */
+	private void deleteMessageById(long id){
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L266">			LOGGER.debug(&quot;(+)deleting trigger messege for  : &quot;+id);</span>
+		}
+<span class="fc" id="L268">		unicastTriggerMessageRepository.deleteById(id);</span>
+		
+<span class="pc bpc" id="L270" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L271">			LOGGER.debug(&quot;(-)trigger messege deleted for  : &quot;+id);</span>
+		}
+<span class="fc" id="L273">	}</span>
+	
+	/**
+	 * stopProcess
+	 * @return
+	 */
+	private void stopProcess() {
+<span class="fc" id="L280">		LOGGER.info(&quot;(+)stopProcess&quot;);</span>
+<span class="fc" id="L281">		int updateCount = unicastTriggerMessageRepository.updateByInstanceId(instanceId, getInstanceIdsByDiscoveryClient());</span>
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">		if(updateCount == 0) {</span>
+<span class="fc" id="L283">			scheduledExecutorService.shutdown();</span>
+<span class="fc" id="L284">			isSchedulerStarted = false;</span>
+<span class="fc" id="L285">			LOGGER.info(&quot;Scheduler has been stopped!!!&quot;);</span>
+		}else {
+<span class="nc" id="L287">			LOGGER.info(&quot;Scheduler would not stopped because some trigger still to be process.&quot;);</span>
+		}
+
+<span class="fc" id="L290">		LOGGER.info(&quot;(-)stopProcess&quot;);</span>
+<span class="fc" id="L291">	}</span>
+
+	/**
+	 * getServiceIdsByDiscoveryClient
+	 * 
+	 * @return List
+	 */
+	private List&lt;Integer&gt; getInstanceIdsByDiscoveryClient() {
+		
+<span class="fc" id="L300">		List&lt;Integer&gt; serviceIds = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc" id="L301">		List&lt;ServiceInstance&gt; serviceInstanceList = discoveryClient.getInstances(serviceAppName);</span>
+		
+<span class="pc bpc" id="L303" title="1 of 2 branches missed.">		for (ServiceInstance serviceInstance : serviceInstanceList)	{</span>
+<span class="nc" id="L304">			serviceIds.add(generateServiceId(serviceInstance.getHost(),serviceInstance.getPort()));</span>
+<span class="nc" id="L305">		}</span>
+<span class="fc" id="L306">		LOGGER.info(&quot;serviceIds = &quot;+ serviceIds);</span>
+<span class="fc" id="L307">		return serviceIds;</span>
+	}
+	
+	/**
+	 * generateServiceId
+	 * 
+	 * @param port
+	 * @param host
+	 * 
+	 * @return int
+	 */
+	private int generateServiceId(String host, Integer port) {
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L320">			LOGGER.debug(&quot;host : &quot;+ host+ &quot;, port : &quot;+ port);</span>
+		}
+<span class="fc" id="L322">		int prime = 31;</span>
+<span class="fc" id="L323">		int result = 1;</span>
+<span class="fc" id="L324">		result = result*prime + host.hashCode();</span>
+<span class="fc" id="L325">		result = result*prime + port.hashCode();</span>
+		
+<span class="pc bpc" id="L327" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L328">			LOGGER.debug(&quot;generateServiceId &quot;+ result);</span>
+		}
+<span class="fc" id="L330">		return result;</span>
+	}
+	
+	/**
+	 * generateServiceId
+	 * 
+	 * @param host
+	 * @return
+	 */
+	private int generateServiceId(String host){
+<span class="pc bpc" id="L340" title="1 of 2 branches missed.">		if (serverPort&gt;0){</span>
+<span class="nc" id="L341">			return 	this.generateServiceId(host, serverPort);</span>
+		}else {
+<span class="pc bpc" id="L343" title="1 of 2 branches missed.">			if (LOGGER.isInfoEnabled()){</span>
+<span class="fc" id="L344">				LOGGER.info(&quot;sslport is being used to generate the service instance id.&quot;);</span>
+			}
+<span class="fc" id="L346">			return 	this.generateServiceId(host, sslPort);</span>
+		}
+	}
+	/**
+	 * getTriggerMessages
+	 * 
+	 * @return List
+	 */
+	private List&lt;TriggerMessage&gt; getTriggerMessages(){
+		
+<span class="fc" id="L356">		return unicastTriggerMessageRepository.findByInstanceId(instanceId);</span>
+	}
+	
+	/**
+	 * 
+	 * @param triggerMessages
+	 * @return
+	 */
+	private int getTriggerMessagesSize(List&lt;TriggerMessage&gt; triggerMessages){
+		
+<span class="fc" id="L366">		int size = triggerMessages.size();</span>
+		
+<span class="pc bpc" id="L368" title="1 of 2 branches missed.">		if (LOGGER.isDebugEnabled()){</span>
+<span class="fc" id="L369">			LOGGER.debug(&quot;Failed TriggerMessages list size : &quot;+ size);</span>
+		}
+<span class="fc" id="L371">		return size;</span>
+	}
+	
+	/**
+	 * isAnyTriggerMessagePresisted
+	 * 
+	 * @return
+	 */
+	private boolean isAnyTriggerMessagePresisted(){
+<span class="fc" id="L380">		return CollectionUtils.isNotEmpty(unicastTriggerMessageRepository.findAll());</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

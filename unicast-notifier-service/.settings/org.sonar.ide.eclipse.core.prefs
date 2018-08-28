@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+extraProperties=sonar.language\=java\r\nsonar.sourceEncoding\=UTF-8\r\nsonar.java.source\=1.8\r\nsonar.dynamicAnalysis\=true
+projectKey=com.acn.avs\:unicast-notifier-service
+serverUrl=http\://10.196.5.25\:9000
+version=2

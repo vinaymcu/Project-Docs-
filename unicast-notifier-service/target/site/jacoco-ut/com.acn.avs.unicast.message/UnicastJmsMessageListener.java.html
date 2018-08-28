@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnicastJmsMessageListener.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unicast-notifier-service</a> &gt; <a href="index.source.html" class="el_package">com.acn.avs.unicast.message</a> &gt; <span class="el_source">UnicastJmsMessageListener.java</span></div><h1>UnicastJmsMessageListener.java</h1><pre class="source lang-java linenums">/***************************************************************************
+ * Copyright (C) Accenture
+ *
+ * The reproduction, transmission or use of this document or its contents is not permitted without
+ * prior express written consent of Accenture. Offenders will be liable for damages. All rights,
+ * including but not limited to rights created by patent grant or registration of a utility model or
+ * design, are reserved.
+ *
+ * Accenture reserves the right to modify technical specifications and features.
+ *
+ * Technical specifications and features are binding only insofar as they are specifically and
+ * expressly agreed upon in a written contract.
+ *
+ **************************************************************************/
+package com.acn.avs.unicast.message;
+
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.stereotype.Component;
+
+import com.acn.avs.unicast.entity.Notifications;
+import com.acn.avs.unicast.entity.SetTopBoxes;
+import com.acn.avs.unicast.event.json.EventUpdate;
+import com.acn.avs.unicast.event.json.EventUpdateRequest;
+import com.acn.avs.unicast.event.param.StbNotificationParam;
+import com.acn.avs.unicast.event.param.TqsNotificationParam;
+import com.acn.avs.unicast.exception.UnicastRequestValidationException;
+import com.acn.avs.unicast.service.StbNotifierService;
+import com.acn.avs.unicast.service.TqsNotifierService;
+import com.acn.avs.unicast.util.UnicastRequestValidator;
+
+/**
+ * @author Anand.Jha
+ * 
+ * This Class is rabbitmq messege listener
+ */
+@Component
+<span class="fc" id="L43">public class UnicastJmsMessageListener {</span>
+
+	/** The Constant LOGGER. */
+<span class="fc" id="L46">	private static final Logger LOGGER = LoggerFactory.getLogger(UnicastJmsMessageListener.class);</span>
+
+	@Autowired
+	TqsNotifierService tqsNotifierService;
+
+	@Autowired
+	StbNotifierService stbNotifierService;
+	
+	@Autowired
+	UnicastRequestValidator validator;
+	
+	 @Autowired
+	 MessageSourceAccessor messageSourceAccessor;
+	/**
+	 * 
+	 * Receive the JMS message
+	 * 
+	 * @param eventUpdate
+	 * 
+	 */
+	public void onMessage(EventUpdateRequest eventUpdate) {
+<span class="fc" id="L67">		LOGGER.info(&quot;onMessage (+)&quot;);</span>
+		
+<span class="fc" id="L69">		notify(eventUpdate);</span>
+		
+<span class="fc" id="L71">		LOGGER.info(&quot;onMessage (-)&quot;);</span>
+<span class="fc" id="L72">	}</span>
+
+	/**
+	 * 
+	 * @param eventUpdate
+	 */
+	private void notify (EventUpdateRequest eventUpdateRequest){
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">		if (!eventUpdateRequest.isValidated()){</span>
+<span class="fc" id="L80">			LOGGER.info(&quot;EventUpdateRequest through JMS: &quot;+ eventUpdateRequest.getEventUpdate());</span>
+			try{
+<span class="fc" id="L82">				validator.validate(eventUpdateRequest);</span>
+<span class="fc" id="L83">			}catch(UnicastRequestValidationException urve){</span>
+<span class="fc" id="L84">				String errorMsg = messageSourceAccessor.getMessage(urve.getErrorCode(),</span>
+<span class="fc" id="L85">						urve.getMsgParamsArray());</span>
+<span class="fc" id="L86">				LOGGER.error(&quot;Error occured while notify &quot;+ errorMsg);</span>
+<span class="fc" id="L87">				return;</span>
+<span class="fc" id="L88">			}</span>
+		}
+<span class="fc" id="L90">		EventUpdate eventUpdate = eventUpdateRequest.getEventUpdate();</span>
+<span class="fc" id="L91">		String subscriberId = eventUpdate.getSubscriberId();</span>
+		
+<span class="fc" id="L93">		String triggerType = eventUpdate.getTriggerType();</span>
+		
+<span class="fc" id="L95">		Notifications notifications = null;</span>
+		
+<span class="fc" id="L97">		boolean isMacNotEmpty = CollectionUtils.isNotEmpty(eventUpdate.getMACAddress());</span>
+<span class="fc" id="L98">		boolean isMessageInfoTrigger = stbNotifierService.isMessageInfoTrigger(triggerType);</span>
+		try {
+
+<span class="fc bfc" id="L101" title="All 4 branches covered.">			if (isMacNotEmpty &amp;&amp; !isMessageInfoTrigger) {</span>
+<span class="fc" id="L102">				String sourceMacAddress = eventUpdate.getMACAddress().get(0);</span>
+<span class="fc" id="L103">				notifications = stbNotifierService.getNotifications(</span>
+						subscriberId, sourceMacAddress);
+<span class="pc bpc" id="L105" title="1 of 4 branches missed.">			} else if (isMacNotEmpty &amp;&amp; isMessageInfoTrigger) {</span>
+<span class="fc" id="L106">				notifications = stbNotifierService.getNotifications(</span>
+<span class="fc" id="L107">						subscriberId, eventUpdate.getMACAddress());</span>
+			} else {
+<span class="fc" id="L109">				notifications = stbNotifierService</span>
+<span class="fc" id="L110">						.getNotifications(subscriberId);</span>
+			}
+
+<span class="fc" id="L113">			notifyToTqs(notifications.getTqsNotifications(), triggerType,</span>
+<span class="fc" id="L114">					eventUpdate.getTimestamp());</span>
+
+<span class="fc" id="L116">			notifyToStb(notifications.getStbNotifications(), triggerType,</span>
+<span class="fc" id="L117">					eventUpdate.getTriggerInfo());</span>
+
+<span class="fc" id="L119">		}catch (Exception ex){</span>
+<span class="fc" id="L120">			LOGGER.error(&quot;Error occured while notify &quot;, ex);</span>
+<span class="fc" id="L121">		}</span>
+<span class="fc" id="L122">	}</span>
+		
+
+	/**
+	 * Notify to Trigger server, initiate retry process if not
+	 * 
+	 * @param tqsNotificationBoxes
+	 * @param triggerType
+	 * @param timestamp
+	 * 
+	 * @return
+	 */
+	private void notifyToTqs(List&lt;SetTopBoxes&gt; tqsNotificationBoxes, String triggerType, String timestamp) {
+		
+<span class="fc bfc" id="L136" title="All 2 branches covered.">		if (tqsNotificationBoxes.isEmpty()){</span>
+<span class="fc" id="L137">			return;</span>
+		}
+		
+<span class="fc" id="L140">		long  time = Long.parseLong(timestamp);</span>
+		
+<span class="fc bfc" id="L142" title="All 2 branches covered.">		for (SetTopBoxes setTopBox: tqsNotificationBoxes){</span>
+<span class="fc" id="L143">			tqsNotifierService.notify(new TqsNotificationParam(triggerType, setTopBox.getMacAddress(), time));</span>
+<span class="fc" id="L144">		}</span>
+<span class="fc" id="L145">	}</span>
+
+	/**
+	 * Notify to STB
+	 * 
+	 * @param stbNotificationBoxes
+	 * @param triggerType
+	 * @param triggerInfo
+	 * 
+	 * @return
+	 */
+	private void notifyToStb(List&lt;SetTopBoxes&gt; stbNotificationBoxes,  String triggerType, String triggerInfo) {
+		
+<span class="fc bfc" id="L158" title="All 2 branches covered.">		if (stbNotificationBoxes.isEmpty()){</span>
+<span class="fc" id="L159">			return;</span>
+		}
+		
+<span class="fc" id="L162">		String serviceName = stbNotifierService.getServiceNameByTriggerType(triggerType);</span>
+		
+<span class="fc" id="L164">		String updateEvent = stbNotifierService.getUpdateEventAsJson(triggerType, triggerInfo);</span>
+		
+<span class="fc bfc" id="L166" title="All 2 branches covered.">		for (SetTopBoxes setTopBox: stbNotificationBoxes){</span>
+<span class="fc" id="L167">			SetTopBoxes setTopBoxWithPortAndProtocol  = stbNotifierService.getSetTopBoxPortAndProtocol(setTopBox.getEquipmentId(), serviceName);</span>
+			
+<span class="fc" id="L169">			StbNotificationParam stbNotificationParam = new StbNotificationParam(</span>
+<span class="fc" id="L170">					setTopBox.getMacAddress(),</span>
+					updateEvent,
+<span class="fc" id="L172">					setTopBox.getExternalIpAddress(),</span>
+<span class="fc" id="L173">					setTopBoxWithPortAndProtocol.getExternalPort(),</span>
+<span class="fc" id="L174">					setTopBoxWithPortAndProtocol.getProtocol());</span>
+			
+<span class="fc" id="L176">			stbNotifierService.notify(stbNotificationParam);</span>
+<span class="fc" id="L177">		}</span>
+<span class="fc" id="L178">	}</span>
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
